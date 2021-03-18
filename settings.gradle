@@ -1,0 +1,5 @@
+rootProject.name = 'GuanYu'
+include 'agent'
+include 'core'
+include 'plugin'
+

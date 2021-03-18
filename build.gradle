@@ -1,0 +1,65 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:4.0.3"
+    }
+}
+
+allprojects {
+    apply plugin: 'java'
+
+    group 'me.threedr3am.guanyu'
+    version '1.0-SNAPSHOT'
+}
+
+subprojects {
+    dependencies {
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
+
+project(":agent") {
+
+    apply plugin: 'com.github.johnrengelman.shadow'
+
+    shadowJar {
+        manifest {
+            attributes 'Main-Class': 'me.threedr3am.guanyu.agent.GuanYu'
+            attributes 'Premain-Class': 'me.threedr3am.guanyu.agent.GuanYu'
+            attributes 'Agent-Class': 'me.threedr3am.guanyu.agent.GuanYu'
+            attributes 'Can-Redefine-Classes': true
+            attributes 'Can-Retransform-Classes': true
+        }
+    }
+
+    dependencies {
+        compile project(":core")
+        compile project(":plugin")
+    }
+}
+
+project(":core") {
+
+}
+
+project(":plugin") {
+
+    dependencies {
+        compile project(":core")
+
+        implementation "org.ow2.asm:asm:8.0.1"
+        implementation "org.ow2.asm:asm-commons:8.0.1"
+    }
+}
