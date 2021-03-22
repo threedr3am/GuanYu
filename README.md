@@ -21,7 +21,7 @@ gradle :agent:shadowJar
 
 在需要监控的应用启动时，加入以下参数用于指定当前agent程序：
 ```text
--javaagent:/Users/xuanyonghao/git-project/GuanYu/agent/build/libs/agent-1.0-SNAPSHOT-all.jar="denyMethodsConfigFile=/Users/threedr3am/git-project/GuanYu/conf/deny.conf"
+-javaagent:/Users/threedr3am/git-project/GuanYu/agent/build/libs/agent-1.0-SNAPSHOT-all.jar="denyMethodsConfigFile=/Users/threedr3am/git-project/GuanYu/conf/deny.conf"
 ```
 denyMethodsConfigFile为agent参数，更多参数请往下翻阅！
 
