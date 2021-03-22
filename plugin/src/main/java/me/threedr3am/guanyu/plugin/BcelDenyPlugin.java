@@ -7,13 +7,21 @@ import me.threedr3am.guanyu.plugin.asm.ASTClassVisitor;
 import org.objectweb.asm.ClassReader;
 
 /**
+ *
+ * 理论上，bcel类加载器加载的class，不应该存在一些危险方法的调用，所以，理应直接禁止
+ *
  * @author threedr3am
  */
 public class BcelDenyPlugin implements Plugin {
 
     @Override
+    public boolean condition(String className) {
+        return className.startsWith("$$BCEL$$");
+    }
+
+    @Override
     public byte[] check(String className, byte[] byteCode) throws Exception {
-        if (className.startsWith("$$BCEL$$")) {
+        if (condition(className)) {
             if (DenyMethods.getDenyMethods().isEmpty()) {
                 return byteCode;
             }

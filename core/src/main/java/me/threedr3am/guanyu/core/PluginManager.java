@@ -36,4 +36,13 @@ public class PluginManager {
         }
         return byteCode;
     }
+
+    public static boolean condition(String className) {
+        for (Plugin plugin : pluginList) {
+            if (plugin.condition(className)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

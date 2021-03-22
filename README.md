@@ -25,6 +25,16 @@ gradle :agent:shadowJar
 ```
 denyMethodsConfigFile为agent参数，更多参数请往下翻阅！
 
+##### 3、attach运行时使用
+
+```text
+java -jar GuanYu.jar 23232 denyMethodsConfigFile=/tmp/deny.conf
+```
+
+- 23232 为需要attach的jvm进程号
+- denyMethodsConfigFile=/tmp/deny.conf 为黑名单方法配置文件路径配置项！
+
+
 ### 二、方法调用黑名单
 
 agent参数：denyMethodsConfigFile

@@ -8,6 +8,8 @@ import org.objectweb.asm.ClassReader;
 
 /**
  *
+ * 这个插件是直接禁止一些黑名单危险方法的调用，但是，可能会存在误报，需要谨慎使用，特别是agent attach运行时加载检测
+ *
  * 默认自带的方法调用黑名单检测插件
  *
  * @author threedr3am
@@ -16,8 +18,16 @@ public class BlackMethodDenyPlugin implements Plugin {
 
 
     @Override
-    public byte[] check(String className, byte[] byteCode) throws Exception {
+    public boolean condition(String className) {
         if (DenyMethods.getDenyMethods().isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public byte[] check(String className, byte[] byteCode) throws Exception {
+        if (!condition(className)) {
             return byteCode;
         }
         ASTClassVisitor astClassVisitor = new ASTClassVisitor(className);
